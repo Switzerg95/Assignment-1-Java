@@ -12,7 +12,12 @@ public class Stuff {
 	
 	public static void optionMenu() {
 		System.out.println("Please choose an option:");
-		System.out.println("w");
+		System.out.println("1) Update Acid Pops Order");
+		System.out.println("2) Update Pumpkin Pasties Order");
+		System.out.println("3) Upate Every Flavour Beans Order");
+		System.out.println("4) Show Price List");
+		System.out.println("5) Show Current Selected Items to Purchase:");
+		System.out.println("6) Pay");
 	}
 	public static void displaySelectedItems(int acidPops, int pumpkinPasties, int everyBeans) {
 		//if (discountPercentage == 0) {
@@ -21,40 +26,31 @@ public class Stuff {
 		//}
 	}
 
-	public static void displayDiscountedMenu() {
+	public static void DiscountedShoppingExperience() {
 		boolean isTrue = true;
 		while(isTrue) {
+		
 
-		System.out.println("Great, thats right! Welcome valued club member!");
-
-		String pumpkinPasties = "Pumpkin Pasties: ";
-		String acidPops = "Acid Pops: ";
-		String everyBeansSmall = "Every Flavour Beans (small bag): ";
-		String everyBeansLarge = "Every Flavour Beans (large bag): ";
+		int acidPopSingle = 11;
+		int acidPopNickleBag = 50;
+		int pumpkinPasties = 100;
+		int everyFlavorBeansSmallBag = 50;
+		int everyFlavorBeansLargeBag = 70;
 		
 		
-		String itemsForSaleArray[] = new String [4];
-				
-		itemsForSaleArray[0] = acidPops;
-		itemsForSaleArray[1] = pumpkinPasties;
-		itemsForSaleArray[2] = everyBeansSmall;
-		itemsForSaleArray[3] = everyBeansLarge;
-		
-		int itemPriceArray[] = new int [4];
-		
-		itemPriceArray[0] = 11;
-		itemPriceArray[1] = 100;
-		itemPriceArray[2] = 50;
-		itemPriceArray[3] = 70;
 		
 		
-		System.out.println("Here is our price List:");
-		System.out.println(acidPops + itemPriceArray[0] );
-		System.out.println(pumpkinPasties + itemPriceArray[1]);
-		System.out.println(everyBeansSmall + itemPriceArray[2] );
-		System.out.println(everyBeansLarge + itemPriceArray[3]);
+		System.out.println("Here is our discounted price list:");
+		System.out.println("Acid pop (single):" + acidPopSingle + "knuts");
+		System.out.println("Acid pop (bag of 5):" + acidPopNickleBag + "knuts");
+		System.out.println("Pumpkin Pasties: " + pumpkinPasties + "knuts");
+		System.out.println("Every flavor beans (small bag):" + everyFlavorBeansSmallBag + "knuts");
+		System.out.println("Every flavor beans (large bag):" + everyFlavorBeansLargeBag + "knuts");
+		
 		
 		optionMenu();
+		
+		break;
 		}
 		
 		
@@ -62,14 +58,8 @@ public class Stuff {
 	
 	
 	public static void main(String[] args) {
-		
-		
-		int discountPercentage = 0;
 		int triesLeft = 2;
-		int selectedItemCost = 0;
-		int discountedItemcost = 0;
-		
-		
+
 		// 	int itemsForSaleArray[]; declaring an array
 		; // allocating memory to array
 
@@ -79,8 +69,6 @@ public class Stuff {
 		int pumpkinPastiesSelected = 0;
 		int everyBeansSelected = 0 ;
 		
-		
-//System.out.print("Acid Pops, Pumpkin Pasties, EveryBeans" + java.util.Arrays.toString(itemsForSaleArray)+"\n");
 		Scanner inScan = new Scanner(System.in);
 		System.out.println("Welcome to our shop!");
 		boolean isTrue = true;
@@ -93,18 +81,18 @@ public class Stuff {
 				System.out.println("What is the password?");
 				String enteredPassword = inScan.nextLine().toLowerCase();
 				if (enteredPassword.equals("blulu")) {
-					discountPercentage = 10;
-					displayDiscountedMenu();
+					System.out.println("Great, thats right! Welcome valued club member!");
+					DiscountedShoppingExperience();
 					}
 				
-				while (triesLeft != 0) {
+				while (triesLeft <=0) {
 					triesLeft --;
 					System.out.println("Try again, tries left:"+ triesLeft);
 					enteredPassword = inScan.nextLine().toLowerCase();
 					
 					if(triesLeft <= 0) {
 						displayMenu();
-						System.out.println(discountPercentage);
+
 					}
 					
 						
