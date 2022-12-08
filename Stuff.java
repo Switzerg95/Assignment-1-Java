@@ -61,7 +61,7 @@ public class Stuff {
 		int triesLeft = 2;
 
 		// 	int itemsForSaleArray[]; declaring an array
-		; // allocating memory to array
+		 // allocating memory to array
 
 		int selectedItemsArray[] = new int [3]; 
 		
@@ -113,26 +113,7 @@ public class Stuff {
 			
 		}
 		
-		
-	 //converts whatever input to lowercase		
-		
-//		while (userInput.equals("yes")||userInput.equals("y")) {
-//			System.out.println("What is the password?"); // ask for pw
-//			userInput = inScan.nextLine(); //ask for a input from user
-//			if (userInput.equals(discount_password)){
-//				discountPercentage = 1;
-//				//displayPrices();
-//			}
-//
-//			else {
-//				triesLeft --;
-//				System.out.println("Try again, tries left:"+ triesLeft);
-//				userInput = inScan.nextLine();
-//				if(triesLeft == 0) {
-//					System.out.println("No more tries left, here is the menu at full price.");
-//				}
-//			}
-//		} 
+
 
 		
 		
