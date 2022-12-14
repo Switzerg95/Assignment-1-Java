@@ -27,10 +27,24 @@ public class Stuff {
 	}
 
 	public static void DiscountedShoppingExperience() {
-		boolean isTrue = true;
-		while(isTrue) {
-		
 
+		
+		System.out.println("Here is our discounted price list:");
+		System.out.println("Acid pop (single):" + acidPopSingle + " knuts");
+		System.out.println("Acid pop (bag of 5):" + acidPopNickleBag + " knuts");
+		System.out.println("Pumpkin Pasties: " + pumpkinPasties + " knuts");
+		System.out.println("Every flavor beans (small bag):" + everyFlavorBeansSmallBag + " knuts");
+		System.out.println("Every flavor beans (large bag):" + everyFlavorBeansLargeBag + " knuts");
+		
+		
+		optionMenu();
+
+		
+		
+	}
+	
+	public static void RegularShoppingExperience() {
+		System.out.println("Unfortunately, you ran out of attempts. You will now see the regular price list.");
 		int acidPopSingle = 11;
 		int acidPopNickleBag = 50;
 		int pumpkinPasties = 100;
@@ -40,18 +54,15 @@ public class Stuff {
 		
 		
 		
-		System.out.println("Here is our discounted price list:");
-		System.out.println("Acid pop (single):" + acidPopSingle + "knuts");
-		System.out.println("Acid pop (bag of 5):" + acidPopNickleBag + "knuts");
-		System.out.println("Pumpkin Pasties: " + pumpkinPasties + "knuts");
-		System.out.println("Every flavor beans (small bag):" + everyFlavorBeansSmallBag + "knuts");
-		System.out.println("Every flavor beans (large bag):" + everyFlavorBeansLargeBag + "knuts");
+		System.out.println("Acid pop (single):" + acidPopSingle + " knuts");
+		System.out.println("Acid pop (bag of 5):" + acidPopNickleBag + " knuts");
+		System.out.println("Pumpkin Pasties: " + pumpkinPasties + " knuts");
+		System.out.println("Every flavor beans (small bag):" + everyFlavorBeansSmallBag + " knuts");
+		System.out.println("Every flavor beans (large bag):" + everyFlavorBeansLargeBag + " knuts");
 		
 		
 		optionMenu();
-		
-		break;
-		}
+
 		
 		
 	}
@@ -62,59 +73,71 @@ public class Stuff {
 
 		// 	int itemsForSaleArray[]; declaring an array
 		 // allocating memory to array
-
-		int selectedItemsArray[] = new int [3]; 
 		
-		int acidPopsSelected = 0;
-		int pumpkinPastiesSelected = 0;
-		int everyBeansSelected = 0 ;
-		
+	
 		Scanner inScan = new Scanner(System.in);
 		System.out.println("Welcome to our shop!");
 		boolean isTrue = true;
-		boolean rightPassword = false;
 		while (isTrue) {
+			int selectedItemsArray[] = new int [3]; 
+			String password = "blulu";
+			int acidPopsSelected = 0;
+			int pumpkinPastiesSelected = 0;
+			int everyBeansSelected = 0 ;
+			boolean isShopping = false;
+			int acidPopsSelectedByUser = 0;
 			System.out.println("Is there a customer waiting?");
 			System.out.println("Enter yes or no.");
 			String userInput = inScan.nextLine().toLowerCase();
-			if (userInput.equals("yes") || userInput.equals("y")) {
+			while (userInput.equals("yes") || userInput.equals("y")) {
+				while (triesLeft > 0 ) {
 				System.out.println("What is the password?");
 				String enteredPassword = inScan.nextLine().toLowerCase();
 				if (enteredPassword.equals("blulu")) {
 					System.out.println("Great, thats right! Welcome valued club member!");
 					DiscountedShoppingExperience();
+					System.exit(0);
 					}
-				
-				while (triesLeft <=0) {
+				else  {
+					
 					triesLeft --;
-					System.out.println("Try again, tries left:"+ triesLeft);
-					enteredPassword = inScan.nextLine().toLowerCase();
-					
-					if(triesLeft <= 0) {
-						displayMenu();
-
-					}
-					
+					if (triesLeft == 0) {
+						isShopping = true;
+						RegularShoppingExperience();
+						int userSelectOption = inScan.nextInt();
 						
-
+						while (isShopping) {
+							switch (userSelectOption) {
+							case 1: userSelectOption = 1;
+							System.out.println("How many would you like?");
+							acidPopsSelectedByUser = inScan.nextInt();
+							acidPopsSelected = acidPopsSelectedByUser + acidPopsSelected;
+							System.out.println(acidPopsSelected);
+							case 2: userSelectOption = 2;
+							break;
+							case 3: userSelectOption = 3;
+							break;
+							case 4: userSelectOption = 4;
+							break;
+							case 5: userSelectOption = 5;
+							break;
+							case 6: userSelectOption = 6;
+							break;
+							
+							}
+						}
+						
+						
 					}
-					
-					
-					
+					System.out.println("Try again, tries left:"+ triesLeft);
 				}
-				
-				
+
+				}
+			}	
 			if (userInput.equals("no")|| userInput.equals("n")){
 				System.out.println("exiting program.");
 				break;
 			}
-			}
-			
-			
 		}
-		
-
-
-		
-		
 	}
+}
