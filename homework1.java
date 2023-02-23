@@ -68,7 +68,7 @@ public static void main(String[] args){
 	boolean customer = false;
 	boolean member = false;
 	boolean greeted =false;
-	
+	int totalPops = 0;
 	int subTotal = 0;
 	
 	System.out.println("Welcome to the HoneyPot!");
@@ -112,29 +112,48 @@ public static void main(String[] args){
 		switch(userSelectOption) 
 		{
 		case 1:
+			totalPops = selectedItem[0] + selectedItem[1]*5;
 			System.out.println("Here is your current order:");
-			System.out.println("Acid Pops Selected:"+ selectedItem[0]);
+			System.out.println("Acid Pops Selected (single):"+ selectedItem[0] + "\nAcid Pops (bag of 5):" + selectedItem[1]);
+			// handle prompt based on if user has any acid pops already selected to purchase.
 			if (selectedItem[0] >= 1) {
-				System.out.println("How many would you like to add or remove?");
+				System.out.println("How many would you like to add or remove? Enter in singular amounts of Acid Pops.");
 			}
 			else {
-				System.out.println("How many would you like?");
+				System.out.println("How many would you like? Enter in singular amounts of Acid Pops.");
 			}
 			
 			int userInput = inputStream.nextInt();
-			
-			if (userInput >=0){
-				selectedItem[0] = userInput + selectedItem[0];
-				
+			if (userInput > 0){
+				totalPops = totalPops + userInput ;
 			}
-				if (selectedItem[0] < 0){
-					selectedItem[0] = 0;
-				}
+			else
+			{
+				totalPops = totalPops + userInput;
+			}
+			System.out.println("debug"+totalPops);
+			if (totalPops >= 5){
+				selectedItem[0] = totalPops % 5;
+				selectedItem[1] = totalPops / 5 ;	
+			}
+			else
+			{
+				selectedItem[1] = 0;
+				selectedItem[0] = totalPops;
+			}
 
-			if (selectedItem[0] !=0) {
-				selectedItem[1] = selectedItem[0] % 5;
-				selectedItem[0] = selectedItem[0] / 5 ;
+		
+			// prevents negative amounts.
+			if (selectedItem[0] < 0){
+				selectedItem[0] = 0;
 			}
+			if (selectedItem[1] < 0){
+				selectedItem[1] = 0;
+			}
+
+			// converts total pops to individual.
+			
+			
 			break;
 			
 		case 2:
@@ -214,11 +233,12 @@ public static void main(String[] args){
 					}				
 				}
 			 System.out.println(subTotal + " knuts");
+			 //apply 10% disc
 			 if (subTotal >= 290){
 				double discount = 0;
 				System.out.println("with 10% discount applied");
 				discount = subTotal *.10;
-				System.out.println(subTotal- discount + "knuts");
+				System.out.println(subTotal- discount + " knuts");
 			 }
 			break;
 		// exit loop
