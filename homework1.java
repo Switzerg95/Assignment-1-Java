@@ -1,5 +1,13 @@
 import java.util.*;
 
+// befopre i go to sleep at 10pm 2/22/23, i need to remember this in the AM:
+
+// Need to fix subtotal. I have finally fixed the acid pop counting.
+// it seems somehow member prices are being shown but is calculated at right price.
+
+
+
+
 public class homework1 {
 	
 	// check to see if greeted, and based on that, display member greeting, and then determine which price list is displayed based on member flag.
