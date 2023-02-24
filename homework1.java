@@ -1,11 +1,8 @@
 import java.util.*;
-
-// befopre i go to sleep at 10pm 2/22/23, i need to remember this in the AM:
-
-// Need to fix subtotal. I have finally fixed the acid pop counting.
-// it seems somehow member prices are being shown but is calculated at right price.
-
-
+//Java CS 401
+//Professor Sosnowski's Class
+// Galen Switzer
+// Assignment 1 2-23-23
 
 
 public class homework1 {
@@ -51,7 +48,7 @@ public class homework1 {
 		
 		
 	}
-
+	
 public static void main(String[] args){
 	// creates scanner object to take in input stream.
     Scanner inputStream = new Scanner(System.in);
@@ -59,18 +56,25 @@ public static void main(String[] args){
 	//int memberPrices [] = new int [3];
     int [] memberPrices = {11,50,100,50,58};
 	int [] regularPrices = {12,58,116,50,70};
-	String [] itemsForsale = {"Acid Pop","Acid Pops (bag of 5)","Pumpkin Pasties","Every Flavour Beans (Small Bag)","Every Flavour beans (Large Bag)"};
+	String [] itemsForsale = {"Acid Pop",
+							"Acid Pops (bag of 5)",
+							"Pumpkin Pasties",
+							"Every Flavour Beans (Small Bag)",
+							"Every Flavour beans (Large Bag)"};
 	String Password = "test";
     int triesleft = 2;	
     int [] selectedItem = new int [5];
+
+
     // acid pop
     selectedItem [0] = 0;
-    // pumpkin pastie
+    // acid pop bag 5
 	selectedItem [1] = 0;
 	// small every flavor bean bag
 	selectedItem [2]= 0;
 	// every flavour bean large
 	selectedItem [3]= 0;
+	
 	// flag section
     boolean browsing = false;
 	boolean customer = false;
@@ -99,13 +103,21 @@ public static void main(String[] args){
     while (triesleft > 0){
 		System.out.println("What is the password?");
 		String userInput = inputStream.nextLine().toLowerCase();
+		if (userInput.equals("")){
+			System.out.println("Silly! You need to actually tell me a password!");
+			
+		}
 		if(userInput.equals(Password)){
 			member = true;
 			break;
 		}
-			else{
+			else if (!userInput.equals(Password) && !userInput.equals("")){
 				triesleft --;
-				System.out.println("Sorry, thats not right.\nTries left:" + triesleft);
+				System.out.println("Sorry, that's not right. Tries left:" + triesleft);
+					if (triesleft == 0){
+						System.out.println("I should've figured you wouldn't be part of the club just by looking at you!");
+					}
+				
 				}
 	}  
     
@@ -121,10 +133,11 @@ public static void main(String[] args){
 		{
 		case 1:
 			totalPops = selectedItem[0] + selectedItem[1]*5;
-			System.out.println("Here is your current order:");
-			System.out.println("Acid Pops Selected (single):"+ selectedItem[0] + "\nAcid Pops (bag of 5):" + selectedItem[1]);
+
 			// handle prompt based on if user has any acid pops already selected to purchase.
 			if (selectedItem[0] >= 1) {
+				System.out.println("Here is your current order:");
+				System.out.println("Acid Pops Selected (single):"+ selectedItem[0] + "\nAcid Pops (bag of 5):" + selectedItem[1]);
 				System.out.println("How many would you like to add or remove? Enter in singular amounts of Acid Pops.");
 			}
 			else {
@@ -139,7 +152,6 @@ public static void main(String[] args){
 			{
 				totalPops = totalPops + userInput;
 			}
-			System.out.println("debug"+totalPops);
 			if (totalPops >= 5){
 				selectedItem[0] = totalPops % 5;
 				selectedItem[1] = totalPops / 5 ;	
@@ -165,10 +177,11 @@ public static void main(String[] args){
 			break;
 			
 		case 2:
-			System.out.println("Here is your current order:");
-			System.out.println("Pumpkin Pasties:"+ selectedItem[2]);
+			
 			if(selectedItem[2] >=1) {
 				System.out.println("How many would you like to add or remove?");
+				System.out.println("Here is your current order:");
+				System.out.println("Pumpkin Pasties:"+ selectedItem[2]);
 			}
 			else
 			{
@@ -184,10 +197,11 @@ public static void main(String[] args){
 			}
 			break;
 		case 3:
-			System.out.println("Here is your current order:");
-			System.out.println("Every Flavour Beans Small Bag:" + selectedItem[3] + "\nEvery Flavour Beans Large Bag:" + selectedItem[4]);
-
+			
 			if (selectedItem[3] >=1 || selectedItem [4] >=1){
+				System.out.println("Here is your current order:");
+				System.out.println("Every Flavour Beans Small Bag:" + selectedItem[3] + "\nEvery Flavour Beans Large Bag:" + selectedItem[4]);
+
 				System.out.println ("How many small bags do you want to add or remove to your order?");
 				userInput = inputStream.nextInt();
 				selectedItem[3] = userInput + selectedItem[3];
@@ -210,17 +224,22 @@ public static void main(String[] args){
 			break;
 		case 5:// subtotal section
 			subTotal = 0;
-			if (member && selectedItem[0] >= 1 || selectedItem[1] >= 1 || selectedItem [2] >=1 || selectedItem [3] >=1 || selectedItem[4] >=1) 
+			int itemsToBuy = 0;
+			itemsToBuy = selectedItem [0] + selectedItem[1] + selectedItem[2] + selectedItem[3] + selectedItem[4];
+			
+			if (member && itemsToBuy >=1) 
 			{
 				System.out.println("Here is your subtotal:");
+				
 				for (int i = 0 ; i < 5 ; i++) 
 					{
 					System.out.println(selectedItem[i] + " " + itemsForsale[i] + " " + memberPrices[i]+ " each unit");
 					}
 			}
 			
-				else if(!member && selectedItem[0] >= 1 || selectedItem[1] >= 1 || selectedItem [2] >=1 || selectedItem [3] >=1 || selectedItem[4] >=1) {
+				else if(!member && itemsToBuy >=1) {
 					System.out.println("Here is your subtotal:");
+					
 					for (int i = 0; i < 5 ; i++){
 	
 					System.out.println(selectedItem[i] + " " + itemsForsale[i] + " " + regularPrices[i]+ " each unit");
@@ -242,26 +261,43 @@ public static void main(String[] args){
 				}
 			 System.out.println(subTotal + " knuts");
 			 //apply 10% disc
-			 if (subTotal >= 290){
+			 if (member && subTotal >= 290){
 				double discount = 0;
-				System.out.println("with 10% discount applied");
 				discount = subTotal *.10;
-				System.out.println(subTotal- discount + " knuts");
+				System.out.println("--------------------------------------------------");
+				System.out.println(subTotal- discount + " knuts" + " after the 10% discount applied");
 			 }
 			break;
 		// exit loop
 		case 6:
-			browsing = false;
+			if (subTotal == 0){
+				System.out.println("Sorry, you have not yet selected any items to purchase...");
+				break;
+			}
+			else{
+				browsing = false;
+			}
+		case 69:
+			System.out.println("Real mature...");
+			break;
+		case 420:
+			System.out.println("420 Blaze it!!");
+			break;
+		default:
+		System.out.println("Thats not an available option.");
 	}
+
 	}
 	// checkout loop
+	System.out.println(subTotal);
+
 	System.out.println("Please enter a payment amount in the following format:");
 	System.out.println("<amount><space><currency>");
 	System.out.println("Where <amount> = an integer");
 	System.out.println("Where <space> = a blank space");
 	System.out.println("Where <currency> = {Knuts, Sickles, Galleons}");
 	System.out.println("You may enter as many times as you like.  Each entry will beadded to your total until sufficient funds have been obtained");
-
+	
 
 
 	inputStream.close();
