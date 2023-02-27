@@ -18,7 +18,6 @@ public class homework1 {
 			System.out.println("Here is the price list for members.");
 			// iterate thru array of member price + items
 			for (int i = 0 ;  i < 5  ; i++) 
-				
 			{
 				System.out.println(itemsForsale [i] + " " + memberPrices[i] + " knuts.");	
 			}
@@ -32,7 +31,6 @@ public class homework1 {
 			}
 	}
 	}
-	
 	public static void showOptions () {
 		String [] Options = {"1)Update Acid Pops Order", "2)Update Pumpkin Pasties Order","3)Update Every Flavour Beans Order","4)Show Price List","5)Show Current Subtotal", "6)Check Out"};
 		System.out.println("Please choose an option:");
@@ -40,20 +38,17 @@ public class homework1 {
 			System.out.println(Options[i]);
 		}
 	}
-	
-	public static int updateOrder(int userSelectOption, int selectedItem[]) {
-		int indexChosen = 0;
-		indexChosen = userSelectOption;
-		return selectedItem[indexChosen];
-		
-		
-	}
-	
+
 public static void main(String[] args){
+	boolean main = true;
+	while (main){
 	// creates scanner object to take in input stream.
     Scanner inputStream = new Scanner(System.in);
 	//allocating memory to an array
 	//int memberPrices [] = new int [3];
+	String Password = "test";
+	// items are ordered -- loook at the string array to figure it out each item index / price
+	int [] selectedItem = {0,0,0,0,0};
     int [] memberPrices = {11,50,100,50,58};
 	int [] regularPrices = {12,58,116,50,70};
 	String [] itemsForsale = {"Acid Pop",
@@ -61,28 +56,19 @@ public static void main(String[] args){
 							"Pumpkin Pasties",
 							"Every Flavour Beans (Small Bag)",
 							"Every Flavour beans (Large Bag)"};
-	String Password = "test";
-    int triesleft = 2;	
-    int [] selectedItem = new int [5];
-
-
-    // acid pop
-    selectedItem [0] = 0;
-    // acid pop bag 5
-	selectedItem [1] = 0;
-	// small every flavor bean bag
-	selectedItem [2]= 0;
-	// every flavour bean large
-	selectedItem [3]= 0;
 	
-	// flag section
+    int triesleft = 2;	
+    
+  
     boolean browsing = false;
 	boolean customer = false;
 	boolean member = false;
 	boolean greeted =false;
 	int totalPops = 0;
 	int subTotal = 0;
-	
+	int sickle = 29;
+	int galleon = 493 ;
+	int knuts = 1;
 	System.out.println("Welcome to the HoneyPot!");
 	System.out.println("[Official Licensed HoneyDukes Franchise]");
 	// loop that handles customer.
@@ -105,37 +91,35 @@ public static void main(String[] args){
 		String userInput = inputStream.nextLine().toLowerCase();
 		if (userInput.equals("")){
 			System.out.println("Silly! You need to actually tell me a password!");
-			
 		}
 		if(userInput.equals(Password)){
 			member = true;
 			break;
 		}
-			else if (!userInput.equals(Password) && !userInput.equals("")){
+			else if (!userInput.equals(Password) && !userInput.equals(""))
+			{
 				triesleft --;
 				System.out.println("Sorry, that's not right. Tries left:" + triesleft);
 					if (triesleft == 0){
-						System.out.println("I should've figured you wouldn't be part of the club just by looking at you!");
+						System.out.println("You're out of tries! Better luck next time.");
 					}
-				
 				}
 	}  
-    
     browsing = true;
     showPriceList(member, memberPrices, regularPrices, itemsForsale,greeted);
     greeted = true;
+	
+	int itemsToBuy = 0;
 	while (browsing) 
 	{
 		showOptions();
-		
 		int userSelectOption = inputStream.nextInt();
 		switch(userSelectOption) 
 		{
 		case 1:
 			totalPops = selectedItem[0] + selectedItem[1]*5;
-
 			// handle prompt based on if user has any acid pops already selected to purchase.
-			if (selectedItem[0] >= 1) {
+			if (selectedItem[0] >= 1 || selectedItem[1] >= 1) {
 				System.out.println("Here is your current order:");
 				System.out.println("Acid Pops Selected (single):"+ selectedItem[0] + "\nAcid Pops (bag of 5):" + selectedItem[1]);
 				System.out.println("How many would you like to add or remove? Enter in singular amounts of Acid Pops.");
@@ -143,7 +127,6 @@ public static void main(String[] args){
 			else {
 				System.out.println("How many would you like? Enter in singular amounts of Acid Pops.");
 			}
-			
 			int userInput = inputStream.nextInt();
 			if (userInput > 0){
 				totalPops = totalPops + userInput ;
@@ -152,32 +135,24 @@ public static void main(String[] args){
 			{
 				totalPops = totalPops + userInput;
 			}
+			// handles the conversion of bags to single.
 			if (totalPops >= 5){
 				selectedItem[0] = totalPops % 5;
 				selectedItem[1] = totalPops / 5 ;	
 			}
-			else
-			{
+			else 		{
 				selectedItem[1] = 0;
 				selectedItem[0] = totalPops;
 			}
-
-		
-			// prevents negative amounts.
+			// prevents negative amounts if user goes crazy.
 			if (selectedItem[0] < 0){
 				selectedItem[0] = 0;
 			}
 			if (selectedItem[1] < 0){
 				selectedItem[1] = 0;
 			}
-
-			// converts total pops to individual.
-			
-			
 			break;
-			
 		case 2:
-			
 			if(selectedItem[2] >=1) {
 				System.out.println("How many would you like to add or remove?");
 				System.out.println("Here is your current order:");
@@ -187,21 +162,21 @@ public static void main(String[] args){
 			{
 				System.out.println("How many would you like?");
 			}
-
 			userInput = inputStream.nextInt();
-			if (userInput >=0){
-				selectedItem[2] = userInput + selectedItem[2];
-				if (userInput <0){
-					selectedItem[2] = 0;
-				}
+			
+			selectedItem[2] = userInput + selectedItem[2];
+			
+			
+			
+			if (selectedItem[2] < 0) {
+				selectedItem[2] = 0;
 			}
+
 			break;
 		case 3:
-			
 			if (selectedItem[3] >=1 || selectedItem [4] >=1){
 				System.out.println("Here is your current order:");
 				System.out.println("Every Flavour Beans Small Bag:" + selectedItem[3] + "\nEvery Flavour Beans Large Bag:" + selectedItem[4]);
-
 				System.out.println ("How many small bags do you want to add or remove to your order?");
 				userInput = inputStream.nextInt();
 				selectedItem[3] = userInput + selectedItem[3];
@@ -218,33 +193,47 @@ public static void main(String[] args){
 				userInput = inputStream.nextInt();
 				selectedItem[4] = userInput + selectedItem[4];
 			}
+
+			if (selectedItem[3] < 0 ){
+				selectedItem[3] = 0;
+				
+			}
+
+			if (selectedItem[4] < 0) {
+				selectedItem[4] = 0; 
+
+			}
 			break;
 		case 4:
 			showPriceList(member, memberPrices, regularPrices, itemsForsale,greeted);
 			break;
-		case 5:// subtotal section
+		case 5:// subtotal section I calculate all of the items that are stored in the arrays. If you are a member,
+				//	then you get whatever is in your inventory displayed back in stdout.
 			subTotal = 0;
-			int itemsToBuy = 0;
+		    itemsToBuy = 0;
 			itemsToBuy = selectedItem [0] + selectedItem[1] + selectedItem[2] + selectedItem[3] + selectedItem[4];
-			
-			if (member && itemsToBuy >=1) 
+	if (member && itemsToBuy >=1) 	
 			{
 				System.out.println("Here is your subtotal:");
-				
 				for (int i = 0 ; i < 5 ; i++) 
 					{
+					if (selectedItem[i] == 0){
+						continue;
+					}
 					System.out.println(selectedItem[i] + " " + itemsForsale[i] + " " + memberPrices[i]+ " each unit");
 					}
 			}
-			
 				else if(!member && itemsToBuy >=1) {
 					System.out.println("Here is your subtotal:");
-					
-					for (int i = 0; i < 5 ; i++){
-	
+					for (int i = 0; i < 5 ; i++)
+					{
+					if (selectedItem[i] == 0)
+					{
+						continue;
+					}
 					System.out.println(selectedItem[i] + " " + itemsForsale[i] + " " + regularPrices[i]+ " each unit");
 					}
-				}
+			}
 				else {
 					System.out.println("No items selected to purchase. Cannot display subtotal at this time.");
 					break;
@@ -259,24 +248,16 @@ public static void main(String[] args){
 						subTotal = selectedItem[i] * regularPrices[i] + subTotal;				
 					}				
 				}
+			 System.out.println("--------------------------------------------------");
 			 System.out.println(subTotal + " knuts");
 			 //apply 10% disc
 			 if (member && subTotal >= 290){
 				double discount = 0;
 				discount = subTotal *.10;
 				System.out.println("--------------------------------------------------");
-				System.out.println(subTotal- discount + " knuts" + " after the 10% discount applied");
+				System.out.println(subTotal - discount + " knuts" + " after the 10% discount applied!");
 			 }
 			break;
-		// exit loop
-		case 6:
-			if (subTotal == 0){
-				System.out.println("Sorry, you have not yet selected any items to purchase...");
-				break;
-			}
-			else{
-				browsing = false;
-			}
 		case 69:
 			System.out.println("Real mature...");
 			break;
@@ -285,21 +266,105 @@ public static void main(String[] args){
 			break;
 		default:
 		System.out.println("Thats not an available option.");
+		break;
+		case 6:
+		subTotal = 0;
+		itemsToBuy = 0;
+		itemsToBuy = selectedItem [0] + selectedItem[1] + selectedItem[2] + selectedItem[3] + selectedItem[4];
+		if (member && itemsToBuy >=1) 	
+		{
+			System.out.println("Here is your subtotal:");
+			System.out.println("-----------------------------");
+			for (int i = 0 ; i < 5 ; i++) 
+				{
+				if (selectedItem[i] == 0){
+					continue;
+				}
+				System.out.println(selectedItem[i] + " " + itemsForsale[i] + " " + memberPrices[i]+ " each unit");
+				}
+		}
+			else if(!member && itemsToBuy >=1) {
+				System.out.println("Here is your subtotal:");
+				System.out.println("-----------------------------");
+				for (int i = 0; i < 5 ; i++)
+				{
+				if (selectedItem[i] == 0)
+				{
+					continue;
+				}
+				System.out.println(selectedItem[i] + " " + itemsForsale[i] + " " + regularPrices[i]+ " each unit");
+				}
+		}
+			else {
+				System.out.println("No items selected to purchase. Cannot checkout at this time.");
+				System.out.println("Goodbye.");
+				System.exit(1);
+				
+				break;
+			}
+		if (member) {
+			for (int i = 0; i < 5 ; i++ ) {
+				subTotal = selectedItem[i] * memberPrices[i] + subTotal;  
+			}
+			}
+			else {
+				for (int i = 0; i < 5 ; i++ ) {
+					subTotal = selectedItem[i] * regularPrices[i] + subTotal;				
+				}				
+			}
+		 System.out.println("--------------------------------------------------");
+		 System.out.println(subTotal + " knuts, is your grand total.");
+		 //apply 10% disc
+		 if (member && subTotal >= 290){
+			double discount = 0;
+			discount = subTotal *.10;
+			System.out.println("--------------------------------------------------");
+			System.out.println(subTotal - discount + " knuts" + " total, after the 10% discount applied!");
+		 }
+		browsing = false;
 	}
-
 	}
+	
 	// checkout loop
-	System.out.println(subTotal);
-
+	
+	System.out.println("Note 1: We prefer exact change, but will make change if necessary!");
+	System.out.println("Note 2: No more than 50 galleons are kept in the cart (funds are transported to Gringotts on a daily basis)");
+	System.out.println("Note 3: Recall our currency options:");
+	System.out.println("1 Sickle = 29 Knuts, 17 Sickles = 1 Galleon ,  = 493 Knuts");
 	System.out.println("Please enter a payment amount in the following format:");
 	System.out.println("<amount><space><currency>");
 	System.out.println("Where <amount> = an integer");
 	System.out.println("Where <space> = a blank space");
 	System.out.println("Where <currency> = {Knuts, Sickles, Galleons}");
-	System.out.println("You may enter as many times as you like.  Each entry will beadded to your total until sufficient funds have been obtained");
-	
+	System.out.println("You may enter as many times as you like.  Each entry will be added to your total until sufficient funds have been obtained");
+
+	boolean checkOut = true;
+	int maxMoney = galleon * 50;
+	while (checkOut){	
+		String paymentAmount = inputStream.next();
+		System.out.println(paymentAmount);
+		
+
+		int payment = inputStream.nextInt();
+
+		System.out.println("payment is:" + payment);
+		subTotal = subTotal - payment;
+		if (subTotal <= 0) { 
+			subTotal = 0;
+		}	
+		System.out.println("remaining payment =" + subTotal);
+		
 
 
-	inputStream.close();
+		if (subTotal <= 0 ){
+			checkOut = false;
+			
+			break;
+
+		}
+		}
+	//inputStream.close();
 	}
+	System.out.println("is this end?");
+}
 }
