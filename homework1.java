@@ -1,4 +1,5 @@
 import java.util.*;
+
 //Java CS 401
 //Professor Sosnowski's Class
 // Galen Switzer
@@ -48,6 +49,7 @@ public static void main(String[] args){
 	//int memberPrices [] = new int [3];
 	String Password = "test";
 	// items are ordered -- loook at the string array to figure it out each item index / price
+	
 	int [] selectedItem = {0,0,0,0,0};
     int [] memberPrices = {11,50,100,50,58};
 	int [] regularPrices = {12,58,116,50,70};
@@ -58,17 +60,21 @@ public static void main(String[] args){
 							"Every Flavour beans (Large Bag)"};
 	
     int triesleft = 2;	
-    
-  
+    int change = 0;
     boolean browsing = false;
 	boolean customer = false;
 	boolean member = false;
 	boolean greeted =false;
+	boolean checkOut = false;
 	int totalPops = 0;
 	int subTotal = 0;
 	int sickle = 29;
 	int galleon = 493 ;
-	int knuts = 1;
+	int memberSubTotal = 0;
+
+
+
+
 	System.out.println("Welcome to the HoneyPot!");
 	System.out.println("[Official Licensed HoneyDukes Franchise]");
 	// loop that handles customer.
@@ -316,10 +322,12 @@ public static void main(String[] args){
 		 System.out.println(subTotal + " knuts, is your grand total.");
 		 //apply 10% disc
 		 if (member && subTotal >= 290){
-			double discount = 0;
-			discount = subTotal *.10;
+			int discount = 0;
+			discount = subTotal / 10;
+			memberSubTotal = subTotal - discount;
 			System.out.println("--------------------------------------------------");
-			System.out.println(subTotal - discount + " knuts" + " total, after the 10% discount applied!");
+			System.out.println(memberSubTotal + " knuts" + " total, after the 10% discount applied!");
+			
 		 }
 		browsing = false;
 	}
@@ -330,7 +338,7 @@ public static void main(String[] args){
 	System.out.println("Note 1: We prefer exact change, but will make change if necessary!");
 	System.out.println("Note 2: No more than 50 galleons are kept in the cart (funds are transported to Gringotts on a daily basis)");
 	System.out.println("Note 3: Recall our currency options:");
-	System.out.println("1 Sickle = 29 Knuts, 17 Sickles = 1 Galleon ,  = 493 Knuts");
+	System.out.println("1 Sickle = 29 Knuts, 17 Sickles = 1 Galleon = 493 Knuts");
 	System.out.println("Please enter a payment amount in the following format:");
 	System.out.println("<amount><space><currency>");
 	System.out.println("Where <amount> = an integer");
@@ -338,33 +346,61 @@ public static void main(String[] args){
 	System.out.println("Where <currency> = {Knuts, Sickles, Galleons}");
 	System.out.println("You may enter as many times as you like.  Each entry will be added to your total until sufficient funds have been obtained");
 
-	boolean checkOut = true;
-	int maxMoney = galleon * 50;
+	checkOut = true;
+	
 	while (checkOut){	
-		String paymentAmount = inputStream.next();
-		System.out.println(paymentAmount);
 		
-
 		int payment = inputStream.nextInt();
+		String currencyType = inputStream.nextLine().strip().toLowerCase();
 
-		System.out.println("payment is:" + payment);
+
+
+		if (currencyType.equals("galleon") || currencyType.equals("galleons")){
+			payment = payment * 493; 
+		}
+		else if (currencyType.equals("sickle") || currencyType.equals("sickles"))
+		{
+			payment = payment * 29;
+		}
+
+		if (member) {
+			subTotal = memberSubTotal;
+		}
+		System.out.println("payment is: " + payment + " " + currencyType);
+		System.out.println("subTotal:" + subTotal);
 		subTotal = subTotal - payment;
-		if (subTotal <= 0) { 
-			subTotal = 0;
-		}	
-		System.out.println("remaining payment =" + subTotal);
+
+		if (subTotal > 0){
+			System.out.println("Remaining Payment: " + subTotal + " knuts");
+		}
+		else{
+		change = subTotal * -1;
+		subTotal = 0;
+		}
+
+		if (change >= 493){
+			change = change / 493;
+			System.out.println("Here is your 1change:" + change + " galleons");
+			change = change 
+		}
+		else if(change >= 29){
+			change = change / 29;
+			System.out.println("Here is your 2change:" + change);
+		}
+		else {
+			System.out.println("Here is your 3change:" + change);
+		}
+	
+
+
 		
-
-
-		if (subTotal <= 0 ){
+		// break back to main loop
+		if(subTotal <= 0 ){
+			System.out.println("Thanks for visiting!! Come again soon!");
 			checkOut = false;
-			
 			break;
-
 		}
 		}
-	//inputStream.close();
 	}
-	System.out.println("is this end?");
 }
 }
