@@ -68,6 +68,7 @@ public static void main(String[] args){
 	boolean checkOut = false;
 	int totalPops = 0;
 	int subTotal = 0;
+	int knuts = 1;
 	int sickle = 29;
 	int galleon = 493 ;
 	int memberSubTotal = 0;
@@ -329,6 +330,8 @@ public static void main(String[] args){
 			System.out.println(memberSubTotal + " knuts" + " total, after the 10% discount applied!");
 			
 		 }
+
+		
 		browsing = false;
 	}
 	}
@@ -366,34 +369,33 @@ public static void main(String[] args){
 		if (member) {
 			subTotal = memberSubTotal;
 		}
-		System.out.println("payment is: " + payment + " " + currencyType);
-		System.out.println("subTotal:" + subTotal);
+
+
+		System.out.println("Your Payment is: " + payment + " " + currencyType);
+		System.out.println("Subtotal:" + subTotal);
 		subTotal = subTotal - payment;
 
 		if (subTotal > 0){
 			System.out.println("Remaining Payment: " + subTotal + " knuts");
 		}
-		else{
 		change = subTotal * -1;
-		subTotal = 0;
-		}
-
-		if (change >= 493){
-			change = change / 493;
-			System.out.println("Here is your 1change:" + change + " galleons");
-			change = change 
-		}
-		else if(change >= 29){
-			change = change / 29;
-			System.out.println("Here is your 2change:" + change);
-		}
-		else {
-			System.out.println("Here is your 3change:" + change);
-		}
-	
-
-
 		
+		int gChange = change / galleon;
+		change = gChange*galleon - change;
+		int sChange  = change / sickle;
+		change = sChange* sickle - change;
+		System.out.println("It would be silly of me, let me give you the lowest coin denomination.");
+
+		if (change > 0){
+			System.out.println(Here is yo);
+		}
+		if ( > 0) {
+
+		}
+
+
+		System.out.println(change);
+
 		// break back to main loop
 		if(subTotal <= 0 ){
 			System.out.println("Thanks for visiting!! Come again soon!");
