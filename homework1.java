@@ -6,7 +6,7 @@ import java.util.*;
 // Assignment 1 2-23-23
 
 
-public class homework1 {
+public class RealHomework1 {
 	
 	// check to see if greeted, and based on that, display member greeting, and then determine which price list is displayed based on member flag.
 	public static void showPriceList (boolean member,int [] memberPrices, int []regularPrices, String [] itemsForsale,boolean greeted) {
@@ -61,12 +61,16 @@ public static void main(String[] args){
 	
     int triesleft = 2;	
     int change = 0;
+    int kChange = 0;
+    int sChange = 0;
+    int gChange = 0;
     boolean browsing = false;
 	boolean customer = false;
 	boolean member = false;
 	boolean greeted =false;
 	boolean checkOut = false;
 	int totalPops = 0;
+	int remainder = 0;
 	int subTotal = 0;
 	int knuts = 1;
 	int sickle = 29;
@@ -351,13 +355,22 @@ public static void main(String[] args){
 
 	checkOut = true;
 	
+	if (member) {
+		subTotal = memberSubTotal;
+	}
+	
 	while (checkOut){	
-		
+		// take in input for payment & currency
 		int payment = inputStream.nextInt();
 		String currencyType = inputStream.nextLine().strip().toLowerCase();
-
-
-
+		
+		// prevent negative payments.
+		if (payment <= 0) {
+			payment = 0;
+			System.out.println("Please enter a valid payment");
+			continue;
+		}
+		// handles currency type value conversion to KNUTS.
 		if (currencyType.equals("galleon") || currencyType.equals("galleons")){
 			payment = payment * 493; 
 		}
@@ -366,40 +379,56 @@ public static void main(String[] args){
 			payment = payment * 29;
 		}
 
-		if (member) {
-			subTotal = memberSubTotal;
-		}
-
-
-		System.out.println("Your Payment is: " + payment + " " + currencyType);
-		System.out.println("Subtotal:" + subTotal);
+		
+		// displays user payment and subtotal.
+	
+		System.out.println("Your Payment is: " + payment  + " Knuts in value");
+		System.out.println("Subtotal: " + subTotal + " knuts");
+		
+		
 		subTotal = subTotal - payment;
+		change = subTotal * -1;
+		
+		
 
 		if (subTotal > 0){
 			System.out.println("Remaining Payment: " + subTotal + " knuts");
 		}
-		change = subTotal * -1;
 		
-		int gChange = change / galleon;
-		change = gChange*galleon - change;
-		int sChange  = change / sickle;
-		change = sChange* sickle - change;
-		System.out.println("It would be silly of me, let me give you the lowest coin denomination.");
-
-		if (change > 0){
-			System.out.println(Here is yo);
+		
+		// if payment 1 - 2
+		
+		if (change > 0 && change <29) {
+			System.out.println("Here is your change "  + change + " knuts");
 		}
-		if ( > 0) {
-
+		if (change > 29 && change < 493) {
+			
+			sChange = change / 29;
+			kChange = change % 29;
+			System.out.println("Here is your change:" + "" + sChange + " sickles " + kChange + " knuts");
 		}
+		
+		if (change >=493) {
+			gChange = change / 493;
+			remainder = change % 493;
+			if ( remainder < 29){
+				kChange = remainder;
+			}
+			else if (remainder > 29 && remainder < 493) {
+			sChange = remainder / 29;
+			if (sChange >= 17) {
+				sChange = 0;
+			}
+			kChange = remainder % 29;
+			}
+		System.out.println("Here is your change: " +"Galleons: " + gChange +" Sickles: " + sChange + " knuts: " + kChange);
+		}
+		
 
-
-		System.out.println(change);
 
 		// break back to main loop
 		if(subTotal <= 0 ){
 			System.out.println("Thanks for visiting!! Come again soon!");
-			checkOut = false;
 			break;
 		}
 		}
